@@ -121,7 +121,7 @@ Provide insights to support further growth of Escape rooms.
 - The dominant age group is **10–13 years old**, indicating the need for escape rooms specifically designed for this segment.  
 - **City 1** maintains a stable flow of approximately **32% kids** from total clients.  
 - **City 2** shows inconsistent performance with **3–6% yearly variation** in kid-room demand compared to City 1.
-![Main Dashboard](powerbi/screenshots/01_main_dashboard.png)
+![Kids vs Grown-up](insights/Kids_vs_Grown-up.png)
 These findings indicate a clear market opportunity for expanding offerings targeted at ages 10–13.
 
 ---
