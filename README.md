@@ -140,7 +140,7 @@ Internal cost analyses (not included in the synthetic dataset but used for busin
 ![Decision on kids room](insights/Kid_Room_Decision.png)
 
 **Notes:**  
-- AV1 already exists in Vilnius.  
+- AV1 already exists in City2.  
 - AV2 offers the best balance between setup cost, build duration, and estimated demand.
 
 **Next Steps:**  
