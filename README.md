@@ -1,9 +1,10 @@
 # Escape Room Data Analysis Project
 
 ### Project Description
-This project analyzes escape room performance using synthetized and anonymized data from Vilnius and Kaunas.  
+This project analyzes escape room performance using synthetized and anonymized data from Vilnius and Kaunas.
+Original data and concept required for dashboards is property of escape rooms called Break Free.
 Although the data does not represent real values, the analytical logic and insights reflect realistic business scenarios.  
-The dataset covers the years **2015–2025**.
+The dataset covers the years **2019–2025**.
 
 ---
 
