@@ -118,10 +118,15 @@ Provide insights to support further growth of Escape rooms.
 **Data explored:** 2019–2025  
 
 **Findings:**  
+
+![Kids vs Grown-up](insights/Kids_vs_Grown-up.png)
+
 - The dominant age group is **10–13 years old**, indicating the need for escape rooms specifically designed for this segment.  
 - **City 1** maintains a stable flow of approximately **32% kids** from total clients.  
 - **City 2** shows inconsistent performance with **3–6% yearly variation** in kid-room demand compared to City 1.
-![Kids vs Grown-up](insights/Kids_vs_Grown-up.png)
+
+![Kids vs Grown-up table zoomed](insights/Kids_vs_Grown-up_zoom.png)
+
 These findings indicate a clear market opportunity for expanding offerings targeted at ages 10–13.
 
 ---
@@ -131,6 +136,8 @@ These findings indicate a clear market opportunity for expanding offerings targe
 Based on the age group insights, the decision was made that future business growth requires a room designed for ages **10–13** in **City 2**.
 
 Internal cost analyses (not included in the synthetic dataset but used for business decisions) indicated that the most profitable and quickest new room to establish would be **AV2**.
+
+![Decision on kids room](insights/Kid_Room_Decision.png)
 
 **Notes:**  
 - AV1 already exists in Vilnius.  
@@ -146,6 +153,8 @@ Planning is underway for additional rooms targeted at ages 10–13 in City 2.
 
 Retention and customer satisfaction improve significantly with high-quality administrative work.  
 To support this, a monthly administrator reward program will be introduced.
+
+![TOP admins](insights/TOP_Admins.png)
 
 **Evaluation Metrics:**  
 - **Room Count:** More rooms handled results in a higher score.  
@@ -164,6 +173,8 @@ Administrators with the highest combined performance score will receive monthly 
 - **AS4** is the best-performing room with **779 entries (2025 YTD)**.  
 - City 1 will open a new adult-oriented room modeled on AS4’s successful theme.  
 - A concept from **City 2 (VS4)** with **356 entries (2025 YTD)** will be adapted for another new room in City 1.
+
+![Both city popularity](insights/Both_City_Room_Popularity.png)
 
 These results show strong opportunity for thematic expansion based on the best-performing rooms in both cities.
 
