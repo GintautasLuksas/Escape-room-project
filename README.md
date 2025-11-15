@@ -202,7 +202,8 @@ Administrators with the highest combined performance score will receive monthly 
 
 ![Both city popularity](insights/Both_City_Room_Popularity.png)
 
-These results show strong opportunity for thematic expansion based on the best-performing rooms in both cities.
+
+Insights are a part of growth program of Escape rooms.
 
 ### License
 Synthetic data used only for educational and analytical purposes.  
