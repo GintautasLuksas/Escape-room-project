@@ -58,7 +58,7 @@ Export all Excel sheets into separate CSV files.
 
 ### Task 2: Cleaning Files With Different Structures
 **Goal:**  
-Handle structural differences between Vilnius and Kaunas source files and unify schemas.
+Handle structural differences between cities source files and unify schemas.
 
 **Process:**  
 - Apply separate cleaning pipelines for each city.  
@@ -112,14 +112,14 @@ Apply full data cleaning and standardization pipeline to each CSV.
 - Export cleaned CSV  
 
 **Outputs:**  
-- `clean_vilnius.csv`  
-- `clean_kaunas.csv`
+- `clean_city1.csv`  
+- `clean_city2.csv`
 
 ---
 
 ### Task 6: Data Merging
 **Goal:**  
-Combine cleaned Vilnius and Kaunas datasets into a single unified CSV.
+Combine cleaned cities datasets into a single unified CSV.
 
 **Process:**  
 - Align column names and formats  
