@@ -1,1 +1,1 @@
-#This file anonymise data
+# Original escape room data has been **masked and synthesized**.
