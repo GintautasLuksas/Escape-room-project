@@ -7,15 +7,15 @@ from datetime import datetime, timedelta
 import unidecode
 
 DEFAULT_PRICES = {
-    2018: "50",
-    2019: "50",
-    2020: "50",
-    2021: "50",
-    2022: "60",
-    2023: "60",
-    2024: "65",
-    2025: "70",
-    2026: "75"
+    2018: "30",
+    2019: "30",
+    2020: "40",
+    2021: "40",
+    2022: "50",
+    2023: "50",
+    2024: "50",
+    2025: "90",
+    2026: "100"
 }
 
 DEFAULT_GROUPS = {
@@ -67,10 +67,10 @@ def categorize_age(age):
 
     if 7 <= age <= 9: return "7–9"
     elif 10 <= age <= 13: return "10–13"
-    elif 14 <= age <= 18: return "14–18"
-    elif 19 <= age <= 24: return "19–24"
-    elif 25 <= age <= 32: return "25–32"
-    elif 33 <= age <= 40: return "33–40"
+    elif 14 <= age <= 18: return "14–17"
+    elif 19 <= age <= 24: return "18–24"
+    elif 25 <= age <= 29: return "25–29"
+    elif 30 <= age <= 40: return "30–40"
     elif age >= 41: return "41+"
     return "N/A"
 
@@ -84,7 +84,7 @@ def fill_missing_age_group(row):
     elif room in ["Room3", "Room4"]:
         return "10–13"
     else:
-        return "25–32"
+        return "25–29"
 
 def assign_team_type(row):
     kids_rooms = {"Room3", "Room4"}
@@ -120,14 +120,14 @@ def clean_source(text: str) -> str:
 def round_to_casual_time(time_obj):
     if time_obj is None:
         return None
-    casual_times = ['13:30', '15:00', '16:30', '18:00', '19:30', '21:00']
+    casual_times = ['12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
     casual_dt = [datetime.strptime(t, '%H:%M').time() for t in casual_times]
     if isinstance(time_obj, datetime):
         current_time = time_obj.time()
     else:
         current_time = time_obj
-    if current_time < datetime.strptime('13:30', '%H:%M').time():
-        return '12:00'
+    if current_time < datetime.strptime('12:00', '%H:%M').time():
+        return '10:00'
     min_diff = timedelta(hours=24)
     best_match = None
     dummy_date = datetime.today().date()
@@ -219,5 +219,4 @@ def filter_rooms(room_list):
     standardized = [standardize_room(room) for room in room_list]
     return [room for room in standardized if room in allowed_rooms]
 
-# process_file, process_all_files, merge_cleaned_files would remain functionally the same,
-# only column names and default mappings need to be replaced with the generic ones above.
+
