@@ -14,10 +14,10 @@ import pandas as pd
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def read_csv_force_first_col_date(file_path):
-    """
+    '''
     Load CSV and force first column to be a datetime named 'Date'.
     Handles empty files gracefully.
-    """
+    '''
     if not os.path.exists(file_path):
         print(f"Missing file: {file_path}")
         return pd.DataFrame()
@@ -42,7 +42,7 @@ def read_csv_force_first_col_date(file_path):
 
 def combine_yearly_csvs(input_dir, file_dict, output_dir):
 
-    """Combine multiple monthly CSV files into a single yearly CSV."""
+    '''Combine multiple monthly CSV files into a single yearly CSV.'''
     os.makedirs(output_dir, exist_ok=True)
 
     for year, file_list in file_dict.items():

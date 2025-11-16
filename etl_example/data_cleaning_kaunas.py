@@ -122,9 +122,9 @@ def categorize_age(age):
     return "N/A"
 
 def fill_missing_age_group(row):
-    """
+    '''
     Fill missing 'Age Group' based on room.
-    """
+    '''
     if row['Age Group'] != "N/A":
         return row['Age Group']
 
@@ -175,10 +175,10 @@ def clean_source(text: str) -> str:
 
 
 def round_to_casual_time(time_obj):
-    """
+    '''
     Round a time or datetime object to the nearest casual time.
     Times earlier than 13:30 are rounded to 12:00.
-    """
+    '''
     if time_obj is None:
         return None
 
@@ -212,7 +212,7 @@ def round_to_casual_time(time_obj):
 
 
 def clean_text(text):
-    """Normalize and clean text by converting to uppercase, removing accents, and filtering out unwanted characters."""
+    '''Normalize and clean text by converting to uppercase, removing accents, and filtering out unwanted characters.'''
     if pd.isna(text):
         return ""
     text = text.upper()
@@ -221,13 +221,13 @@ def clean_text(text):
 
 
 def clean_price_series_City1(price_series: pd.Series, file_year: int) -> pd.Series:
-    """
+    '''
     Clean City1 price series by:
     1. Splitting merged Excel price cells across multiple rows.
        Example: '160' over 3 rows with default 50E -> [100E, 30E, 30E]
     2. Ignoring coupon codes or numbers outside 30–600 range.
     3. Filling default price where necessary.
-    """
+    '''
     default_price_str = DEFAULT_PRICES_City1.get(file_year, "30E")
     default_price = int(re.search(r'\d+', default_price_str).group())
 
@@ -279,10 +279,10 @@ def clean_price_series_City1(price_series: pd.Series, file_year: int) -> pd.Seri
 
 
 def clean_escape_time(value):
-    """
+    '''
     Convert time strings 'HH:MM' or 'HH:MM:SS' to total minutes as float.
     Return '-' if invalid or missing.
-    """
+    '''
     if pd.isna(value):
         return "-"
     value_str = str(value).strip()
@@ -295,10 +295,10 @@ def clean_escape_time(value):
         return "-"
 
 def normalize_text(text) -> str:
-    """
+    '''
     Normalize text by stripping whitespace, uppercasing,
     and removing accents. If input is not a string, return empty string.
-    """
+    '''
     if not isinstance(text, str):
         return ''
     text = text.strip().upper()
@@ -309,9 +309,9 @@ def normalize_text(text) -> str:
     return text
 
 def standardize_room(value) -> str:
-    """
+    '''
     Map various room name aliases to standardized room names using extended mapping.
-    """
+    '''
     mapping = {
         "KV1": ["KV1A", "KV1B"],
         "AV2": ["AV2A", "AV2B", "AV2C"],
@@ -335,9 +335,9 @@ def standardize_room(value) -> str:
     return None
 
 def filter_rooms(room_list):
-    """
+    '''
     Filter and standardize rooms in a list, keeping only allowed rooms.
-    """
+    '''
     allowed_rooms = {
         'AS2', 'KS1', 'AS1', 'AS3', 'AV2',
         'AS4', 'KV3', 'KV2',
@@ -349,7 +349,7 @@ def filter_rooms(room_list):
 
 
 def process_file(input_path, output_path):
-    """Load a CSV file, clean and standardize the data, then save the cleaned DataFrame."""
+    '''Load a CSV file, clean and standardize the data, then save the cleaned DataFrame.'''
     filename = os.path.basename(input_path)
     year_match = re.search(r'(\d{4})', filename)
     if not year_match:
@@ -467,7 +467,7 @@ def process_file(input_path, output_path):
 
 
 def process_all_files(input_folder, output_folder, file_pattern="combined_data_*.csv"):
-    """Process all files matching pattern from input_folder and save cleaned versions to output_folder."""
+    '''Process all files matching pattern from input_folder and save cleaned versions to output_folder.'''
     os.makedirs(output_folder, exist_ok=True)
 
     input_paths = glob.glob(os.path.join(input_folder, file_pattern))
@@ -481,11 +481,11 @@ def process_all_files(input_folder, output_folder, file_pattern="combined_data_*
         process_file(input_path, output_path)
 
 def merge_cleaned_files(cleaned_folder, output_path):
-    """
+    '''
     Merge all cleaned CSV files from cleaned_folder into one DataFrame,
     aligning columns by union and filling missing columns with NaN.
     Save the merged DataFrame to output_path.
-    """
+    '''
     files = glob.glob(os.path.join(cleaned_folder, "City1_cleaned_combined_data_*.csv"))
     if not files:
         print("No cleaned files found to merge.")

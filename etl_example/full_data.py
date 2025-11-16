@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 
-"""Merge cleaned CSV files from two cities into one dataset.
+'''Merge cleaned CSV files from two cities into one dataset.
     Adds a 'city' column to each entry, cleans column names,
-    handles price and escape time, and prepares data for further analysis."""
+    handles price and escape time, and prepares data for further analysis.'''
 
 
 def merge_city_data(city1_path, city2_path, output_path):
