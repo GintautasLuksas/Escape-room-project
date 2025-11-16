@@ -1,6 +1,9 @@
 import os
 import pandas as pd
 
+'''Goal of this script to combine all csv files of same year and same city to one csv file.'''
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def read_csv_force_first_col_date(file_path):
@@ -22,7 +25,6 @@ def read_csv_force_first_col_date(file_path):
     df.rename(columns={first_col: "Date"}, inplace=True)
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
-    # Example of normalizing naming variations
     for col in df.columns:
         cleaned = col.lower().replace(" ", "")
         if cleaned in ["duration", "timeescaped", "sessionlength"]:
@@ -32,9 +34,8 @@ def read_csv_force_first_col_date(file_path):
 
 
 def combine_yearly_csvs(input_dir, file_dict, output_dir):
-    """
-    Combine multiple monthly CSV files into a single yearly CSV.
-    """
+
+    """Combine multiple monthly CSV files into a single yearly CSV."""
     os.makedirs(output_dir, exist_ok=True)
 
     for year, file_list in file_dict.items():

@@ -6,6 +6,9 @@ import glob
 from datetime import datetime, timedelta
 import unidecode
 
+'''This script cleans and standatise the data and merges into one City1 file with full data'''
+
+
 DEFAULT_PRICES = {
     2018: "30",
     2019: "30",
@@ -148,7 +151,7 @@ def clean_text(text):
     return re.sub(r'[^A-Z0-9 ]', '', text).strip()
 
 def clean_price_series(price_series: pd.Series, file_year: int) -> pd.Series:
-    default_price_str = DEFAULT_PRICES.get(file_year, "65")
+    default_price_str = DEFAULT_PRICES.get(file_year, "30")
     default_price = int(re.search(r'\d+', default_price_str).group())
     values = price_series.fillna("").astype(str).str.upper().tolist()
     cleaned = []

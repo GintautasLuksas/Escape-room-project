@@ -3,15 +3,16 @@ import pandas as pd
 import numpy as np
 import os
 
+'''This file extracts each sheet seperately from City1 and City2 xlsx files'''
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# originally contained real city & file paths
 data_sources = {
     "location_a": os.path.join(BASE_DIR, "data", "location_a", "raw", "source_file_a.xlsx"),
     "location_b": os.path.join(BASE_DIR, "data", "location_b", "raw", "source_file_b.xlsx"),
 }
 
-# originally Lithuanian column names
 COLUMN_PRICE = "PriceOrVoucher"
 COLUMN_INFO = "SourceInfo"
 

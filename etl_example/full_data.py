@@ -1,12 +1,13 @@
 import os
 import pandas as pd
 
-def merge_city_data(city1_path, city2_path, output_path):
-    """
-    Merge cleaned CSV files from two cities into one dataset.
+"""Merge cleaned CSV files from two cities into one dataset.
     Adds a 'city' column to each entry, cleans column names,
-    handles price and escape time, and prepares data for further analysis.
-    """
+    handles price and escape time, and prepares data for further analysis."""
+
+
+def merge_city_data(city1_path, city2_path, output_path):
+
     drop_columns = [
         'Extra1','Extra2','Extra3','Extra4','Extra5','Extra6',
         'Extra7','Extra8','Extra9','Extra10','Extra11','Extra12',
@@ -49,11 +50,9 @@ def merge_city_data(city1_path, city2_path, output_path):
         )
         merged_df["Price"] = pd.to_numeric(merged_df["Price"], errors="coerce").astype("Int64")
 
-    # Clean escape time
     if "EscapeTime" in merged_df.columns:
         merged_df["EscapeTime"] = merged_df["EscapeTime"].replace("-", pd.NA)
 
-    # Normalize source column
     if "Source" in merged_df.columns:
         merged_df["Source"] = merged_df["Source"].fillna("").str.strip().str.upper()
         counts = merged_df["Source"].value_counts()
