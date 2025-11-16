@@ -1,7 +1,14 @@
 import os
 import pandas as pd
 
-'''Goal of this script to combine all csv files of same year and same city to one csv file.'''
+'''This script merges multiple monthly CSV files into yearly datasets for each location.
+
+- Loads CSVs listed per year for each city/location
+- Forces the first column to become column named 'Date'
+- Standardizes time-related column names to 'SessionDuration'
+- Handles missing or empty CSVs without crashing
+- Drops duplicate rows before saving
+- Outputs final yearly CSVs into given location'''
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

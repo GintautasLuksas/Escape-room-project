@@ -3,7 +3,15 @@ import pandas as pd
 import numpy as np
 import os
 
-'''This file extracts each sheet seperately from City1 and City2 xlsx files'''
+
+'''Extracts all sheets from two Excel workbooks (location_a and location_b),
+cleans the data, and saves each sheet as a separate CSV.
+
+- Loads XLSX files containing multiple sheets of raw data
+- Detects and replaces merged cells in the price column with "NO_VALUE"
+- Forward-fills empty date/group columns (merged cells are present in xlsx)
+- Standardizes column names: PriceOrVoucher and SourceInfo
+- Saves each cleaned sheet as CSV'''
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
