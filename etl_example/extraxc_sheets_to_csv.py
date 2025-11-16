@@ -3,86 +3,75 @@ import pandas as pd
 import numpy as np
 import os
 
-
-'''Extracts all sheets from two Excel workbooks (location_a and location_b),
-cleans the data, and saves each sheet as a separate CSV.
-
-- Loads XLSX files containing multiple sheets of raw data
-- Detects and replaces merged cells in the price column with "NO_VALUE"
-- Forward-fills empty date/group columns (merged cells are present in xlsx)
-- Standardizes column names: PriceOrVoucher and SourceInfo
-- Saves each cleaned sheet as CSV'''
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-data_sources = {
-    "location_a": os.path.join(BASE_DIR, "data", "location_a", "raw", "source_file_a.xlsx"),
-    "location_b": os.path.join(BASE_DIR, "data", "location_b", "raw", "source_file_b.xlsx"),
+original_files = {
+    "City1": os.path.join(BASE_DIR, "data", "City1", "raw_data", "Source File City1.xlsx"),
+    "City2": os.path.join(BASE_DIR, "data", "City2", "raw_data", "Source File City2.xlsx"),
 }
 
-COLUMN_PRICE = "PriceOrVoucher"
-COLUMN_INFO = "SourceInfo"
+price_col_name = "Revenue"
+col_name_info = "Source"
 
-def process_location(label: str, xlsx_path: str):
+def process_city(city: str, xlsx_path: str):
     if not os.path.exists(xlsx_path):
-        print(f"File not found for {label}: {xlsx_path}")
+        print(f"File not found for {city}: {xlsx_path}")
         return
 
     wb = openpyxl.load_workbook(xlsx_path, data_only=True)
     sheet_names = wb.sheetnames
 
-    output_folder = os.path.join(BASE_DIR, "data", label, "processed")
+    output_folder = os.path.join(BASE_DIR, "data", city, "extracted_data")
     os.makedirs(output_folder, exist_ok=True)
 
-    print(f"\nProcessing {label.upper()} ({len(sheet_names)} sheets)...")
+    print(f"\nProcessing {city.upper()} ({len(sheet_names)} sheets)...")
 
     for sheet_name in sheet_names:
         ws = wb[sheet_name]
         headers = [cell.value for cell in next(ws.iter_rows(min_row=1, max_row=1))]
 
         try:
-            price_col_idx = headers.index(COLUMN_PRICE)
+            price_col_index = headers.index(price_col_name)
         except ValueError:
-            print(f"'{COLUMN_PRICE}' not found in sheet: {sheet_name}")
+            print(f"'{price_col_name}' not found in sheet: {sheet_name}")
             continue
 
-        merged_to_replace = set()
+        merged_cells_to_replace = set()
         for merged_range in ws.merged_cells.ranges:
-            if merged_range.min_col - 1 == price_col_idx:
+            if merged_range.min_col - 1 == price_col_index:
                 for row in range(merged_range.min_row + 1, merged_range.max_row + 1):
-                    merged_to_replace.add((row, merged_range.min_col))
+                    merged_cells_to_replace.add((row, merged_range.min_col))
 
-        rows = []
+        data = []
         for i, row in enumerate(ws.iter_rows(min_row=2), start=2):
-            values = []
+            row_data = []
             for j, cell in enumerate(row):
-                if j == price_col_idx and (i, j + 1) in merged_to_replace:
-                    values.append("NO_VALUE")
+                if j == price_col_index and (i, j + 1) in merged_cells_to_replace:
+                    row_data.append("NO_PRICE")
                 else:
-                    values.append(cell.value)
-            rows.append(values)
+                    row_data.append(cell.value)
+            data.append(row_data)
 
-        df = pd.DataFrame(rows, columns=headers)
+        df = pd.DataFrame(data, columns=headers)
 
         df.iloc[:, 0] = df.iloc[:, 0].replace(r'^\s*$', np.nan, regex=True).ffill()
         df.iloc[:, 1] = df.iloc[:, 1].replace(r'^\s*$', np.nan, regex=True).ffill()
 
-        if COLUMN_INFO in df.columns:
-            df[COLUMN_INFO] = df[COLUMN_INFO].replace(r'^\s*$', np.nan, regex=True).ffill()
+        if col_name_info in df.columns:
+            df[col_name_info] = df[col_name_info].replace(r'^\s*$', np.nan, regex=True).ffill()
 
-        safe_name = "".join(c if c.isalnum() or c in "_-" else "_" for c in sheet_name)
-        csv_path = os.path.join(output_folder, f"{safe_name}.csv")
+        safe_sheet_name = "".join(c if c.isalnum() or c in "_-" else "_" for c in sheet_name)
+        csv_file = os.path.join(output_folder, f"{safe_sheet_name}.csv")
 
-        df.to_csv(csv_path, index=False, encoding="utf-8")
-        print(f"Saved: {csv_path}")
+        df.to_csv(csv_file, index=False, encoding="utf-8")
+        print(f"Saved: {csv_file}")
 
-    print(f"Finished processing: {label.upper()}")
+    print(f"Conversion complete for {city.UPPER()}!")
 
 def main():
-    for label, path in data_sources.items():
-        process_location(label, path)
-    print("\nAll processing complete.")
+    for city, xlsx_path in original_files.items():
+        process_city(city, xlsx_path)
+    print("\n All conversions complete!")
 
 if __name__ == "__main__":
     main()

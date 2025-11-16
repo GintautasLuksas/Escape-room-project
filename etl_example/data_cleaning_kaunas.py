@@ -270,7 +270,6 @@ def clean_price_series_City1(price_series: pd.Series, file_year: int) -> pd.Seri
             i += 1
             continue
 
-        # --- Default fallback ---
         cleaned.append(f"{default_price}E")
         i += 1
 
@@ -345,7 +344,6 @@ def filter_rooms(room_list):
         'KV1', 'AV1', 'KS2'
     }
     standardized = [standardize_room(room) for room in room_list]
-    # Filter out None and rooms not in allowed list
     filtered = [room for room in standardized if room in allowed_rooms]
     return filtered
 
@@ -386,7 +384,7 @@ def process_file(input_path, output_path):
         df['Time'] = parsed
         bad = df['Time'].isna().sum()
         if bad:
-            print(f"⚠️  Dropping {bad} rows with invalid 'Time'")
+            print(f"Dropping {bad} rows with invalid 'Time'")
             df = df.dropna(subset=['Time'])
         df['Time'] = df['Time'].dt.time.apply(round_to_casual_time)
 
@@ -506,19 +504,14 @@ def merge_cleaned_files(cleaned_folder, output_path):
 
 
 if __name__ == "__main__":
-    # Project root
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # one level above src
 
-    # Folders
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     input_folder = os.path.join(BASE_DIR, "data", "City1", "merged_data")
     cleaned_folder = os.path.join(BASE_DIR, "data", "City1", "cleaned")
     merged_output_path = os.path.join(cleaned_folder, "City1_all_year.csv")
 
-    # Ensure output folder exists
     os.makedirs(cleaned_folder, exist_ok=True)
 
-    # Process all files
     process_all_files(input_folder, cleaned_folder)
 
-    # Merge cleaned files
     merge_cleaned_files(cleaned_folder, merged_output_path)

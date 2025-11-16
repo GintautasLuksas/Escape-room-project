@@ -35,7 +35,7 @@ def read_csv_force_first_col_date(file_path):
     for col in df.columns:
         cleaned = col.lower().replace(" ", "")
         if cleaned in ["duration", "timeescaped", "sessionlength"]:
-            df.rename(columns={col: "SessionDuration"}, inplace=True)
+            df.rename(columns={col: "Escape Time"}, inplace=True)
 
     return df
 
